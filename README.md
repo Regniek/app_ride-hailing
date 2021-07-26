@@ -1,9 +1,13 @@
 # app_ride-hailing
 
 
-
 ## Connect with postgres
-postgres://<user_postgres>:<password_postgres>@localhost:5432/<name_table>'
+### .env file
+
+USER_PG= user postgres
+PASS_PG= password postgres
+DB_PG= database name in postgres
+
 ## Create database in postgres
 
 CREATE DATABASE ride_hailing;
@@ -12,7 +16,25 @@ CREATE TABLE drivers (id SERIAL, name VARCHAR(20),number_plate VARCHAR(10), vehi
 CREATE TABLE riders (id SERIAL, name VARCHAR(20),phone VARCHAR(20),PRIMARY KEY (id));
 CREATE TABLE trips (id SERIAL, driver_id int NOT NULL, rider_id int NOT NULL, initial_latitude FLOAT(8), initial_longitude FLOAT(8),initial_time TIMESTAMP, finish_time TIMESTAMP, finish_latitude FLOAT(8), finish_longitude FLOAT(8), fare FLOAT, fee_paid BOOLEAN NOT NULL,CONSTRAINT fk_rider_id FOREIGN KEY (rider_id) REFERENCES riders (id),CONSTRAINT fk_driver_id FOREIGN KEY (driver_id) REFERENCES drivers (id));
 
-
 ## Install the gems needed
 
+run
+```
 bundle install
+```
+## Run Test
+
+use in your console
+```
+ruby test/test.rb
+```
+## Run App
+
+use in your console 
+```
+ruby server.rb
+```
+
+
+
+

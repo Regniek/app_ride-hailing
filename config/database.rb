@@ -1,2 +1,5 @@
 require 'sequel'
-DB =  Sequel.connect('postgres://postgres:password@localhost:5432/ride_hailing')
+require 'dotenv'
+Dotenv.load
+
+DB =  Sequel.connect("postgres://#{ENV['USER_PG']}:#{ENV['PASS_PG']}@localhost:5432/#{ENV['DB_PG']}")

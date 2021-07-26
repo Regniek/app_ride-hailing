@@ -1,5 +1,6 @@
 require './config/database.rb'
 require 'date'
+require 'pry'
 def show_trips
     trips = DB[:trips]
     return trips.all.to_json
@@ -7,9 +8,8 @@ end
 
 def start_trip(rider_id, initial_latitude, initial_longitude, finish_latitude, finish_longitude)
     driver_id = 1
-    puts DateTime.now
-    initial_time = DateTime.now
-    finish_time = DateTime.now
+    initial_time = Time.now
+    finish_time = Time.now
     fare = 0.0
     fee_paid = false
     trip = DB["INSERT INTO trips (driver_id, rider_id, initial_latitude, initial_longitude, initial_time, finish_time, finish_longitude, finish_latitude, fare, fee_paid ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",driver_id, rider_id, initial_latitude, initial_longitude, initial_time, finish_time, finish_longitude, finish_latitude, fare, fee_paid]
@@ -17,11 +17,14 @@ def start_trip(rider_id, initial_latitude, initial_longitude, finish_latitude, f
     return "Trip start!"
 end
 
-def finish_trip(finish_latitude, finish_longitude, trip_id)
-    finish_time = DateTime.now
+def finish_trip(trip_id, finish_latitude, finish_longitude )
+
+    finish_time = Time.now
     trip = DB["UPDATE trips SET finish_latitude = '#{finish_latitude}', finish_longitude = '#{finish_longitude}', finish_time = '#{finish_time}' WHERE id = #{trip_id}"]
+    trip.update
     return "Trip finish!"
 end
+
 
 
 
@@ -34,3 +37,16 @@ def calculate_kms_trip(finish_latitude,finish_longitude,initial_latitude,initial
     return c
 end
 
+def calculate_min_trip(finish_time,initial_time)
+    min = TimeDifference.between(initial_time,finish_time).in_minutes
+    return min
+end
+
+def calculate_fare(id)
+    trip = DB[:trips].where(id:id)
+    kms = calculate_kms_trip(trip.finish_latitude,trip.finish_longitude,trip.initial_latitude,trip.initial_longitude)
+    minutes = calculate_min_trip(trip.finish_time,trip.initial_time)
+    fare = (3500 + (kms * 1000) + (minutes * 200))
+    trip = DB["UPDATE trips SET fare = '#{fare}' WHERE id = #{id}"]
+    return "fare is #{fare}!"
+end

@@ -14,7 +14,7 @@ class RideHailingTest < Test::Unit::TestCase
             'name' => 'Juan',
             'phone' => '+573113000102'
         }
-        post '/riders',rider_data.to_json, "CONTENT_TYPE" => "application/json"
+        post '/api/riders',rider_data.to_json, "CONTENT_TYPE" => "application/json"
         assert last_response.ok?
         assert_equal 'Rider added', last_response.body 
     end
@@ -26,7 +26,7 @@ class RideHailingTest < Test::Unit::TestCase
             'vehicle_color' => 'Blue',
             'brand' => 'Renault'
         }
-        post '/drivers',driver_data.to_json, "CONTENT_TYPE" => "application/json"
+        post '/api/drivers',driver_data.to_json, "CONTENT_TYPE" => "application/json"
         assert last_response.ok?
         assert_equal 'Driver added', last_response.body 
     end
@@ -38,7 +38,7 @@ class RideHailingTest < Test::Unit::TestCase
             'finish_longitude'=> -74.094798,
             'finish_latitude'=> 4.664523,
         }
-        post '/trips/start',trip_data.to_json, "CONTENT_TYPE" => "application/json"
+        post '/api/trips/start',trip_data.to_json, "CONTENT_TYPE" => "application/json"
         assert last_response.ok?
         assert_equal 'Trip start!', last_response.body 
     end
@@ -48,7 +48,7 @@ class RideHailingTest < Test::Unit::TestCase
             'finish_longitude'=> -74.094798,
             'finish_latitude'=> 4.664523,
         }
-        put '/trips/finish',trip_data.to_json, "CONTENT_TYPE" => "application/json"
+        put '/api/trips/finish',trip_data.to_json, "CONTENT_TYPE" => "application/json"
         assert last_response.ok?
         assert_equal 'Trip finish!', last_response.body 
     end
