@@ -1,3 +1,3 @@
-require File.expand_path('ride_hailing', File.dirname(__FILE__))
+require File.expand_path('server', File.dirname(__FILE__))
 
 run RideHailing
