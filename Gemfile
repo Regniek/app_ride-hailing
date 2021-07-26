@@ -4,7 +4,9 @@ gem 'sinatra'
 gem 'sequel'
 gem 'rest-client'
 gem 'dotenv'
-
+gem "sinatra-activerecord" 
+gem "activerecord"
+gem "rake"
 
 group :development do
  gem 'sqlite3'

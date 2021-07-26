@@ -1,9 +1,14 @@
 require 'sinatra'
+require "sinatra/activerecord"
 require './controllers/drivers_controller.rb'
 require './controllers/riders_controller.rb'
 require './controllers/trips_controller.rb'
 
+set :database_file, "config/database.yml"
 class RideHailing < Sinatra::Base
+
+    register Sinatra::ActiveRecordExtension
+
     get "/" do
       "hello world"
     end
