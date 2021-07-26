@@ -1,10 +1,14 @@
 require 'sinatra'
 require "sinatra/activerecord"
+set :database_file, "config/database.yml"
 require './controllers/drivers_controller.rb'
 require './controllers/riders_controller.rb'
 require './controllers/trips_controller.rb'
 
-set :database_file, "config/database.yml"
+get "/" do
+    "hello world"
+end
+
 class RideHailing < Sinatra::Base
 
     register Sinatra::ActiveRecordExtension
@@ -12,6 +16,7 @@ class RideHailing < Sinatra::Base
     get "/" do
       "hello world"
     end
+
     get '/api/riders' do
         show_riders
     end
