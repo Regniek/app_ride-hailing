@@ -2,7 +2,11 @@ require 'sinatra'
 require './controllers/drivers_controller.rb'
 require './controllers/riders_controller.rb'
 require './controllers/trips_controller.rb'
-    
+
+class RideHailing < Sinatra::Base
+    get "/" do
+      "hello world"
+    end
     get '/api/riders' do
         show_riders
     end
@@ -36,3 +40,4 @@ require './controllers/trips_controller.rb'
         data = JSON.parse(request.body.read)
         calculate_fare(data["trip_id"])
     end
+end
